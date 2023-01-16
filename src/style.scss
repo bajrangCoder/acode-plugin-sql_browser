@@ -1,0 +1,48 @@
+#acode-plugin-sql{
+    .tablesList{
+        padding: 16px;
+        border-radius: 15px;
+        background: var(--popup-background-color);
+        border: var(--border);
+        margin-top: 8px;
+        width: 100%;
+        color: var(--primary-text-color);
+        box-shadow: 0 3px 5px var(--box-shadow-color);
+    }
+    .pagination {
+        padding: 10px;
+        width: 100%;
+        margin: auto;
+    }
+    .table_container{
+        width: auto;
+        margin-top: 15px;
+        overflow-x: auto;
+        margin: 5px;
+        padding: 10px;
+        .dbTable{
+            border-collapse: collapse;
+            font-size: 0.9em;
+            font-family: sans-serif;
+            width: 100%;
+            box-shadow: 0 0 8px var(--box-shadow-color);
+            thead tr{
+                background-color: var(--accent-color);
+                color: var(--primary-text-color);
+                text-align: left;
+            }
+            th,td{
+                padding: 12px 15px;
+            }
+            tbody tr{
+                border-bottom: 1px solid var(--border-color);
+                &:nth-of-type(even){
+                    background-color: var(--primary-color);
+                }
+                &:last-of-type{
+                    border-bottom: 2px solid var(--accent-color);
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+  "id": "me.bajrangcoder.sql",
+  "name": "SQL Browser",
+  "main": "dist/main.js",
+  "version": "1.0.0",
+  "readme": "readme.md",
+  "icon": "icon.png",
+  "files": [
+    "lib/worker.sql-wasm.js",
+    "lib/sql-wasm.wasm"
+  ],
+  "price": 60,
+  "author": {
+    "name": "Raunak Raj",
+    "email": "nkray21111983@gmail.com",
+    "url": "https://github.com/bajrangCoder/",
+    "github": "bajrangCoder"
+  }
+}
