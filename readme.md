@@ -4,6 +4,15 @@ SQL Browser plugin for Acode to view db files.
 No need to download any third party apps to view db files instead
 use this plugin
 
+<details>
+    <summary>Change Log</summary>
+    <code><strong>v1.0.1</strong></code>
+    <ul>
+        <li>Change opening db file system</li>
+        <li>Fix bug</li>
+    </ul>
+</details>
+
 ## Features
 - Support extension (`.db, .sqlite, . sqlite3`)
 - Ability to read bigger files
@@ -11,9 +20,8 @@ use this plugin
 - Limit functionality
 
 ## Usage
-
-Open your database file in editor, it will automatically
-preview the result.
+Search `Open Db` in command pallete(`•••`) and select your database file
+then it will automatically preview the result.
 
 ## Important
 
@@ -27,4 +35,6 @@ It takes input in `0,30` form, where
 
 **Provide you feedback & also report bugs**
 
-** Thanks for using SQL Browser Plugin 🎉❣️**
+---
+
+**Thanks for using SQL Browser Plugin 🎉❣️**

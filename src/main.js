@@ -1,31 +1,38 @@
 import plugin from '../plugin.json';
 import style from './style.scss';
+import tag from 'html-tag-js';
 
 const fsOperation = acode.require("fsOperation");
 const select = acode.require("select");
+const fileBrowser = acode.require("fileBrowser");
 
 class SQLBrowser {
     #worker = null;
     $tableArr = [];
 
     async init($page) {
+        editorManager.editor.commands.addCommand({
+            name: 'dbexplorer:opendb',
+            description: 'Open db',
+            exec: this.run.bind(this),
+        });
         $page.id = "acode-plugin-sql";
         $page.settitle("SQL Browser");
-        this.$page = $page
-        editorManager.on("switch-file",this.run.bind(this));
+        this.$page = $page;
         this.$style = tag('style',{
             textContent: style,
         });
         document.head.append(this.$style);
         this.createUi();
         this.$tablesList.onclick = this.openSelect.bind(this);
-        this.pagination.onchange=this.paginate.bind(this)
+        this.pagination.onchange=this.paginate.bind(this);
         const onhide = this.$page.onhide;
         this.$page.onhide = () => {
             this.$tablesList.textContent="Select db table";
             this.$dbTable.innerHTML = "";
             this.#worker = null;
-            this.$tableArr =[];
+            this.$tableArr = [];
+            this.pagination.value = "0,30";
             //this.$page.innerHTML = "";
         }
         onhide();
@@ -52,11 +59,14 @@ class SQLBrowser {
         table_container.append(this.$dbTable);
     }
     
-    async run(file){
-        if (!file.location || !/\.(db|sqlite3|sqlite)$/.test(file.name)) return;
-        
+    async run(){
+        const file = await fileBrowser("file","Select Database File");
+        if (!file.url || !/^(.*\.(db|sqlite3|sqlite))$/i.test(file.url)) {
+            window.toast("Unsupported file",4000);
+            return;
+        }
         this.startWorker(this.baseUrl)
-        const arrayBuffer = await fsOperation(file.location+file.name).readFile();
+        const arrayBuffer = await fsOperation(file.url).readFile();
         this.openDB(arrayBuffer);
         await this.executeSQL("SELECT * FROM sqlite_master","list");
         this.$page.show()
@@ -148,7 +158,7 @@ class SQLBrowser {
     }
     
     async destroy() {
-        editorManager.off("switch-file",this.run());
+        editorManager.editor.commands.removeCommand("dbexplorer:opendb");
     }
 }
 

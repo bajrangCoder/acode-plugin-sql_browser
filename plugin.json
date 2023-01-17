@@ -2,7 +2,7 @@
   "id": "me.bajrangcoder.sql",
   "name": "SQL Browser",
   "main": "dist/main.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "readme": "readme.md",
   "icon": "icon.png",
   "files": [
@@ -13,7 +13,7 @@
   "author": {
     "name": "Raunak Raj",
     "email": "nkray21111983@gmail.com",
-    "url": "https://github.com/bajrangCoder/",
+    "url": "https://github.com/bajrangCoder/acide-plugin-sql_browser",
     "github": "bajrangCoder"
   }
 }
