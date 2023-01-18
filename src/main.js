@@ -7,7 +7,7 @@ const select = acode.require("select");
 const fileBrowser = acode.require("fileBrowser");
 
 class SQLBrowser {
-    #worker = null;
+    $worker = null;
     $tableArr = [];
 
     async init($page) {
@@ -23,22 +23,6 @@ class SQLBrowser {
             textContent: style,
         });
         document.head.append(this.$style);
-        this.createUi();
-        this.$tablesList.onclick = this.openSelect.bind(this);
-        this.pagination.onchange=this.paginate.bind(this);
-        const onhide = this.$page.onhide;
-        this.$page.onhide = () => {
-            this.$tablesList.textContent="Select db table";
-            this.$dbTable.innerHTML = "";
-            this.#worker = null;
-            this.$tableArr = [];
-            this.pagination.value = "0,30";
-            //this.$page.innerHTML = "";
-        }
-        onhide();
-    }
-    
-    async createUi(){
         this.$tablesList = tag("button",{
             className: "tablesList",
             textContent: "Select db table"
@@ -57,6 +41,16 @@ class SQLBrowser {
         });
         this.$page.append(...[this.$tablesList,this.pagination,table_container]);
         table_container.append(this.$dbTable);
+        this.$tablesList.onclick = this.openSelect.bind(this);
+        this.pagination.onchange=this.paginate.bind(this);
+        this.$page.onhide = () => {
+            this.$tablesList.textContent="Select db table";
+            this.$dbTable.innerHTML = "";
+            this.$worker = null;
+            this.$tableArr = [];
+            this.pagination.value = "0,30";
+            //this.$page.innerHTML = "";
+        }
     }
     
     async run(){
@@ -73,26 +67,26 @@ class SQLBrowser {
     }
     
     async startWorker(baseUrl){
-        this.#worker = new Worker(baseUrl+"lib/worker.sql-wasm.js");
-        this.#worker.onerror = e => window.toast(`Worker error: ${e.message}`, 4000);
+        this.$worker = new Worker(baseUrl+"lib/worker.sql-wasm.js");
+        this.$worker.onerror = e => window.toast(`Worker error: ${e.message}`, 4000);
     }
     
     async openDB(arrayBuffer){
-        this.#worker.postMessage({
+        this.$worker.postMessage({
             action: "open",
             buffer: arrayBuffer,
         });
     }
     
     async executeSQL(command,type){
-        this.#worker.onmessage = (e) => {
+        this.$worker.onmessage = (e) => {
             if (e.data.id=="list") {
                 this.$tableArr=e.data.results[0].values;
             }else{
                 this.createTable(e.data.results)
             }
         }
-        this.#worker.postMessage({
+        this.$worker.postMessage({
             id:type,
             action: "exec",
             sql: command

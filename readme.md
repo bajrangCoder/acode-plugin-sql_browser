@@ -6,10 +6,14 @@ use this plugin
 
 <details>
     <summary>Change Log</summary>
+    <code><strong>v1.0.2</strong></code>
+    <ul>
+        <li>Bug Fixed</li>
+    </ul>
     <code><strong>v1.0.1</strong></code>
     <ul>
         <li>Change opening db file system</li>
-        <li>Fix bug</li>
+        <li>Bug Fixed</li>
     </ul>
 </details>
 
