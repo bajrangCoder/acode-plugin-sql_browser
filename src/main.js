@@ -16,7 +16,7 @@ class SQLBrowser {
             description: 'Open db',
             exec: this.run.bind(this),
         });
-        $page.id = "acode-plugin-sql";
+        $page.id = "me-bajrangcoder-sql";
         $page.settitle("SQL Browser");
         this.$page = $page;
         this.$style = tag('style',{
@@ -43,14 +43,15 @@ class SQLBrowser {
         table_container.append(this.$dbTable);
         this.$tablesList.onclick = this.openSelect.bind(this);
         this.pagination.onchange=this.paginate.bind(this);
+        const onhide = this.$page.onhide;
         this.$page.onhide = () => {
             this.$tablesList.textContent="Select db table";
             this.$dbTable.innerHTML = "";
             this.$worker = null;
             this.$tableArr = [];
             this.pagination.value = "0,30";
-            //this.$page.innerHTML = "";
         }
+        onhide();
     }
     
     async run(){
